@@ -1,0 +1,36 @@
+﻿@model AuthModel
+@{
+    ViewData["Title"] = "SignUp";
+    var Days = new string[31];
+    for (int i = 1; i <= 31; i++)
+    {
+        Days[i - 1] = i.ToString();
+    }
+    var Months = new string[] { "January", "February", "March", "April",
+                    "May", "June", "July", "August", "Septemer", "October", "November", "December"};
+    var Years = new string[122];
+    for (int i = 0; i < 122; i++)
+    {
+        Years[i] = (1900 + i).ToString();
+    }
+}
+<div class="text-left">
+    <h1 class="display-4">Sign Up</h1>
+</div>
+<form method="post">
+    <b>First name </b><br>
+    <div class="mt-2">@Html.EditorFor(p => p.FirstName) @Html.ValidationMessageFor(p => p.FirstName)</div><br>
+    <b class="mt-2">Last name </b><br>
+    <div sclass="mt-2"> @Html.EditorFor(p => p.LastName) @Html.ValidationMessageFor(p => p.LastName)</div><br>
+    <b class="mt-2">Birthday</b><br>
+    <div class="mt-2">
+            @Html.DropDownListFor((p => p.Day), new SelectList(@Days), new { style = "padding:3px" })
+            @Html.DropDownListFor((p => p.Month), new SelectList(@Months), new { style = "padding:3px" })
+            @Html.DropDownListFor((p => p.Year), new SelectList(@Years), new { style = "padding:3px" })
+        </div><br>
+
+    <b class="mt-2">Gender</b> @Html.ValidationMessageFor(p => p.Gender)<br>
+    @Html.RadioButtonFor((p => p.Gender), "Male")Male<br>
+    @Html.RadioButtonFor((p => p.Gender), "Female")Female<br>
+    <input type="submit" value="Sign Up" class="btn btn-primary mt-3 pr-3 pl-3">
+</form>
